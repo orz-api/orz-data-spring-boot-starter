@@ -1,14 +1,16 @@
 package orz.springboot.data.lock_transaction;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.redisson.api.RedissonClient;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.PlatformTransactionManager;
 import orz.springboot.data.lock.OrzLockManager;
 import orz.springboot.data.lock.OrzLockName;
 import orz.springboot.data.transaction.OrzTransaction;
 import orz.springboot.data.transaction.OrzTransactionManager;
 
 @Component
-@ConditionalOnBean({OrzLockManager.class, OrzTransactionManager.class})
+@ConditionalOnClass({RedissonClient.class, PlatformTransactionManager.class})
 public class OrzLockTransactionManager {
     private final OrzLockManager lockManager;
     private final OrzTransactionManager transactionManager;

@@ -3,13 +3,13 @@ package orz.springboot.data.lock;
 import org.apache.commons.lang3.StringUtils;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.stereotype.Component;
 
 import static orz.springboot.base.OrzBaseUtils.check;
 
 @Component
-@ConditionalOnBean(RedissonClient.class)
+@ConditionalOnClass(RedissonClient.class)
 public class OrzLockManager {
     private final RedissonClient redissonClient;
     private final String applicationName;
