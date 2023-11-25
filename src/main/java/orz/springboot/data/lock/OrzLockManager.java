@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.stereotype.Component;
 
-import static orz.springboot.base.OrzBaseUtils.check;
+import static orz.springboot.base.OrzBaseUtils.assertion;
 
 @Component
 @ConditionalOnClass(RedissonClient.class)
@@ -15,7 +15,7 @@ public class OrzLockManager {
     private final String applicationName;
 
     public OrzLockManager(RedissonClient redissonClient, @Value("${spring.application.name}") String applicationName) {
-        check(StringUtils.isNotBlank(applicationName), "StringUtils.isNotBlank(applicationName)");
+        assertion(StringUtils.isNotBlank(applicationName), "StringUtils.isNotBlank(applicationName)");
         this.redissonClient = redissonClient;
         this.applicationName = applicationName;
     }
