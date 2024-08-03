@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: orz-mq-spring-boot-starter-test
+logging:
+  level:
+    root: debug
+test:
+  enable-test-container: true
