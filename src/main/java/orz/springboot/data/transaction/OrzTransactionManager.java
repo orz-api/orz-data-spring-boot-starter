@@ -1,5 +1,6 @@
 package orz.springboot.data.transaction;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -9,6 +10,7 @@ import static org.springframework.transaction.TransactionDefinition.PROPAGATION_
 
 @Component
 @ConditionalOnClass(PlatformTransactionManager.class)
+@ConditionalOnBean(PlatformTransactionManager.class)
 public class OrzTransactionManager {
     private final PlatformTransactionManager transactionManager;
     private final TransactionDefinition transactionDefinition;

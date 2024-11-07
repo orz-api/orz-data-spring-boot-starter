@@ -12,11 +12,11 @@ import java.util.Map;
 
 @Data
 @Validated
-@ConfigurationProperties(prefix = "orz.data")
+@ConfigurationProperties(prefix = OrzDataConstants.PROPS_PREFIX)
 public class OrzDataProps {
     @Valid
     @NotNull
-    private final Map<String, SourceConfig> source = Collections.emptyMap();
+    private Map<String, SourceConfig> source = Collections.emptyMap();
 
     @Data
     public static class SourceConfig {

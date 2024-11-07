@@ -6,3 +6,14 @@ logging:
     root: debug
 test:
   enable-test-container: true
+orz:
+  data:
+    source:
+      primary:
+        url: jdbc:mysql://localhost:3306/spring_data_demo_1?characterEncoding=utf-8
+        username: root
+        password: 123456
+      secondary:
+        url: jdbc:mysql://localhost:3306/spring_data_demo_2?characterEncoding=utf-8
+        username: root
+        password: 123456

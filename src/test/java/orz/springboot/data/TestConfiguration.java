@@ -11,6 +11,7 @@ import org.springframework.test.context.TestContext;
 import org.springframework.test.context.TestExecutionListener;
 import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.utility.DockerImageName;
+import orz.springboot.data.jdbc.OrzJdbcConnectionDetails;
 
 import javax.annotation.Nonnull;
 
@@ -19,8 +20,13 @@ import javax.annotation.Nonnull;
 public class TestConfiguration implements TestExecutionListener, Ordered {
     @ConditionalOnProperty("test.enable-test-container")
     @Bean
-    @ServiceConnection
-    public MySQLContainer<?> mysqlContainer() {
+    public MySQLContainer<?> primaryMysqlContainer() {
+        return new MySQLContainer<>(DockerImageName.parse("mysql:9.0.1"));
+    }
+
+    @ConditionalOnProperty("test.enable-test-container")
+    @Bean
+    public MySQLContainer<?> secondaryMysqlContainer() {
         return new MySQLContainer<>(DockerImageName.parse("mysql:9.0.1"));
     }
 
@@ -29,6 +35,28 @@ public class TestConfiguration implements TestExecutionListener, Ordered {
     @ServiceConnection("redis")
     public RedisContainer redisContainer() {
         return new RedisContainer(DockerImageName.parse("redis:7.4.0"));
+    }
+
+    @ConditionalOnProperty("test.enable-test-container")
+    @Bean
+    public OrzJdbcConnectionDetails primaryJdbcConnectionDetails(MySQLContainer<?> primaryMysqlContainer) {
+        return new OrzJdbcConnectionDetails(
+                primaryMysqlContainer.getJdbcUrl(),
+                primaryMysqlContainer.getUsername(),
+                primaryMysqlContainer.getPassword(),
+                primaryMysqlContainer.getDriverClassName()
+        );
+    }
+
+    @ConditionalOnProperty("test.enable-test-container")
+    @Bean
+    public OrzJdbcConnectionDetails secondaryJdbcConnectionDetails(MySQLContainer<?> secondaryMysqlContainer) {
+        return new OrzJdbcConnectionDetails(
+                secondaryMysqlContainer.getJdbcUrl(),
+                secondaryMysqlContainer.getUsername(),
+                secondaryMysqlContainer.getPassword(),
+                secondaryMysqlContainer.getDriverClassName()
+        );
     }
 
     @Override

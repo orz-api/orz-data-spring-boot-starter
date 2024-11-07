@@ -43,21 +43,21 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-data-jdbc")
 
     compileOnly("org.springframework.boot:spring-boot-starter-data-jpa")
-    testImplementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    // testImplementation("org.springframework.boot:spring-boot-starter-data-jpa")
 
     compileOnly("org.springframework.boot:spring-boot-starter-data-redis")
-    testImplementation("org.springframework.boot:spring-boot-starter-data-redis")
+    // testImplementation("org.springframework.boot:spring-boot-starter-data-redis")
 
     compileOnly("org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3")
-    testImplementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3")
+    // testImplementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3")
 
     compileOnly("org.redisson:redisson-spring-boot-starter:3.38.1")
-    testImplementation("org.redisson:redisson-spring-boot-starter:3.38.1")
+    // testImplementation("org.redisson:redisson-spring-boot-starter:3.38.1")
 
     compileOnly("org.flywaydb:flyway-core")
-	testImplementation("org.flywaydb:flyway-core")
+	// testImplementation("org.flywaydb:flyway-core")
     compileOnly("org.flywaydb:flyway-mysql")
-	testImplementation("org.flywaydb:flyway-mysql")
+	// testImplementation("org.flywaydb:flyway-mysql")
 
     testRuntimeOnly("com.mysql:mysql-connector-j")
 

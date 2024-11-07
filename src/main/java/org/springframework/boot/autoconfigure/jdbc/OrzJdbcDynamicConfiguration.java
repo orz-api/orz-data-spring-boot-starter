@@ -44,20 +44,7 @@ public class OrzJdbcDynamicConfiguration {
         return dataSource;
     }
 
-    public static void registerBeanDefinitions2(BeanDefinitionRegistry registry, String source, SourceConfig config) {
-        var jdbcConnectionDetailsBeanName = OrzDataUtils.getJdbcConnectionDetailsBeanName(source);
-        if (!registry.containsBeanDefinition(jdbcConnectionDetailsBeanName)) {
-            var configurationBeanName = OrzDataUtils.getJdbcDynamicConfigurationBeanName(source);
-            registry.registerBeanDefinition(jdbcConnectionDetailsBeanName, BeanDefinitionBuilder.genericBeanDefinition(OrzJdbcConnectionDetails.class)
-                    .setFactoryMethodOnBean("createJdbcConnectionDetails", configurationBeanName)
-                    .setLazyInit(false)
-                    .getBeanDefinition());
-        } else {
-            log.debug("Bean already registered: {}", jdbcConnectionDetailsBeanName);
-        }
-    }
-
-    public static void registerBeanDefinition(BeanDefinitionRegistry registry, String source, SourceConfig config) {
+    public static void registerBeanDefinitions1(BeanDefinitionRegistry registry, String source, SourceConfig config) {
         log.debug("Registering bean definitions for {}", source);
 
         var configurationBeanName = OrzDataUtils.getJdbcDynamicConfigurationBeanName(source);
@@ -77,5 +64,18 @@ public class OrzJdbcDynamicConfiguration {
                 .addConstructorArgReference(OrzDataUtils.getJdbcConnectionDetailsBeanName(source))
                 .setLazyInit(false)
                 .getBeanDefinition());
+    }
+
+    public static void registerBeanDefinitions2(BeanDefinitionRegistry registry, String source, SourceConfig config) {
+        var jdbcConnectionDetailsBeanName = OrzDataUtils.getJdbcConnectionDetailsBeanName(source);
+        if (!registry.containsBeanDefinition(jdbcConnectionDetailsBeanName)) {
+            var configurationBeanName = OrzDataUtils.getJdbcDynamicConfigurationBeanName(source);
+            registry.registerBeanDefinition(jdbcConnectionDetailsBeanName, BeanDefinitionBuilder.genericBeanDefinition(OrzJdbcConnectionDetails.class)
+                    .setFactoryMethodOnBean("createJdbcConnectionDetails", configurationBeanName)
+                    .setLazyInit(false)
+                    .getBeanDefinition());
+        } else {
+            log.debug("Bean already registered: {}", jdbcConnectionDetailsBeanName);
+        }
     }
 }
