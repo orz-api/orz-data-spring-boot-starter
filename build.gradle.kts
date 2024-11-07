@@ -2,12 +2,12 @@ plugins {
     signing
     `java-library`
     `maven-publish`
-    id("org.springframework.boot") version "3.3.2"
+    id("org.springframework.boot") version "3.3.5"
     id("io.spring.dependency-management") version "1.1.6"
 }
 
 group = "io.github.orz-api"
-version = "0.0.2-SNAPSHOT"
+version = "0.0.3-SNAPSHOT"
 
 java {
     toolchain {
@@ -39,12 +39,26 @@ repositories {
 dependencies {
     api("io.github.orz-api:orz-base-spring-boot-starter:0.0.2-SNAPSHOT")
 
+    compileOnly("org.springframework.boot:spring-boot-starter-data-jdbc")
+    testImplementation("org.springframework.boot:spring-boot-starter-data-jdbc")
+
     compileOnly("org.springframework.boot:spring-boot-starter-data-jpa")
     testImplementation("org.springframework.boot:spring-boot-starter-data-jpa")
+
     compileOnly("org.springframework.boot:spring-boot-starter-data-redis")
     testImplementation("org.springframework.boot:spring-boot-starter-data-redis")
-    compileOnly("org.redisson:redisson-spring-boot-starter:3.34.1")
-    testImplementation("org.redisson:redisson-spring-boot-starter:3.34.1")
+
+    compileOnly("org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3")
+    testImplementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3")
+
+    compileOnly("org.redisson:redisson-spring-boot-starter:3.38.1")
+    testImplementation("org.redisson:redisson-spring-boot-starter:3.38.1")
+
+    compileOnly("org.flywaydb:flyway-core")
+	testImplementation("org.flywaydb:flyway-core")
+    compileOnly("org.flywaydb:flyway-mysql")
+	testImplementation("org.flywaydb:flyway-mysql")
+
     testRuntimeOnly("com.mysql:mysql-connector-j")
 
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
