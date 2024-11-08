@@ -11,7 +11,7 @@ import org.springframework.test.context.TestContext;
 import org.springframework.test.context.TestExecutionListener;
 import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.utility.DockerImageName;
-import orz.springboot.data.jdbc.OrzJdbcConnectionDetails;
+import orz.springboot.data.source.OrzJdbcConnectionDetails;
 
 import javax.annotation.Nonnull;
 

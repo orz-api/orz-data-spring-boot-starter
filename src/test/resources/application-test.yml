@@ -1,6 +1,6 @@
 spring:
   application:
-    name: orz-mq-spring-boot-starter-test
+    name: orz-data-spring-boot-starter-test
 logging:
   level:
     root: debug
@@ -13,7 +13,13 @@ orz:
         url: jdbc:mysql://localhost:3306/spring_data_demo_1?characterEncoding=utf-8
         username: root
         password: 123456
+        flyway:
+          locations:
+            - classpath:db/migration/primary
       secondary:
         url: jdbc:mysql://localhost:3306/spring_data_demo_2?characterEncoding=utf-8
         username: root
         password: 123456
+        flyway:
+          locations:
+            - classpath:db/migration/secondary
