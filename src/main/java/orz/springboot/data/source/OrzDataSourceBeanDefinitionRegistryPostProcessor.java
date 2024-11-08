@@ -31,9 +31,7 @@ public class OrzDataSourceBeanDefinitionRegistryPostProcessor implements BeanDef
     public void postProcessBeanDefinitionRegistry(@Nonnull BeanDefinitionRegistry registry) throws BeansException {
         if (beanFactory.containsSingleton(OrzDataSourceAnnotations.class.getName())) {
             var annotations = beanFactory.getBean(OrzDataSourceAnnotations.class);
-            annotations.forEach((name, annotation) -> {
-                OrzJdbcRegistrar.registerConnectionDetailsBeanDefinitions(environment, registry, annotation);
-            });
+            annotations.forEach((name, annotation) -> OrzJdbcRegistrar.registerConnectionDetailsBeanDefinitions(environment, registry, annotation));
         }
     }
 }

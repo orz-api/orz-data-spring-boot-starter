@@ -33,7 +33,6 @@ public class RepoConfiguration {
     @Configuration
     @MapperScan(
             basePackages = "orz.springboot.data.repo.primary",
-            sqlSessionFactoryRef = "primarySqlSessionFactory",
             sqlSessionTemplateRef = "primarySqlSessionTemplate",
             annotationClass = Mapper.class
     )

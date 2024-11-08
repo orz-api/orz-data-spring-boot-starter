@@ -1,11 +1,14 @@
 spring:
   application:
     name: orz-data-spring-boot-starter-test
-logging:
-  level:
-    root: debug
+  data:
+    redis:
+      password: 123456
+#logging:
+#  level:
+#    root: debug
 test:
-  enable-test-container: true
+  enable-test-container: false
 orz:
   data:
     source:

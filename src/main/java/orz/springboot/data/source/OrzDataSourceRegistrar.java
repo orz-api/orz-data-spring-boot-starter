@@ -15,7 +15,6 @@ import org.springframework.boot.autoconfigure.transaction.OrzTransactionRegistra
 import org.springframework.boot.context.properties.bind.Bindable;
 import org.springframework.boot.context.properties.bind.Binder;
 import org.springframework.context.EnvironmentAware;
-import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.env.Environment;
@@ -28,7 +27,6 @@ import orz.springboot.data.annotation.OrzDataSources;
 import java.util.Objects;
 
 @Slf4j
-@Import(OrzDataSourceBeanDefinitionRegistryPostProcessor.class)
 public class OrzDataSourceRegistrar implements ImportBeanDefinitionRegistrar, EnvironmentAware, BeanFactoryAware {
     private Environment environment;
     private ConfigurableListableBeanFactory beanFactory;
