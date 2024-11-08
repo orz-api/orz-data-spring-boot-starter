@@ -22,8 +22,8 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.type.AnnotationMetadata;
 import orz.springboot.data.OrzDataConstants;
 import orz.springboot.data.OrzDataProps;
-import orz.springboot.data.source.annotation.OrzDataSource;
-import orz.springboot.data.source.annotation.OrzDataSources;
+import orz.springboot.data.annotation.OrzDataSource;
+import orz.springboot.data.annotation.OrzDataSources;
 
 import java.util.Objects;
 

@@ -1,4 +1,4 @@
-package orz.springboot.data.source.annotation;
+package orz.springboot.data.annotation;
 
 import org.springframework.context.annotation.Import;
 import orz.springboot.data.source.OrzDataSourceRegistrar;

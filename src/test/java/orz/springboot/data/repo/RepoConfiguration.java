@@ -4,7 +4,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import orz.springboot.data.source.annotation.OrzDataSource;
+import orz.springboot.data.annotation.OrzDataSource;
 import orz.springboot.data.repo.primary.model.PrimaryTest1Eo;
 import orz.springboot.data.repo.secondary.model.SecondaryTest1Eo;
 
