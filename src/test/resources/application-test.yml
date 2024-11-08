@@ -4,11 +4,15 @@ spring:
   data:
     redis:
       password: 123456
-#logging:
-#  level:
-#    root: debug
+  datasource:
+    url: jdbc:mysql://localhost:3306/spring_data_demo_1?characterEncoding=utf-8
+    username: root
+    password: 123456
+logging:
+  level:
+    root: debug
 test:
-  enable-test-container: false
+  enable-test-container: true
 orz:
   data:
     source:

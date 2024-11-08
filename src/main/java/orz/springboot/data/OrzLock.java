@@ -67,7 +67,9 @@ public class OrzLock {
         } catch (OrzLockException e) {
             throw e.getException();
         } finally {
-            lock.unlock();
+            if (lock.isLocked() && lock.isHeldByCurrentThread()) {
+                lock.unlock();
+            }
         }
     }
 

@@ -8,6 +8,7 @@ import orz.springboot.data.repo.primary.PrimaryRepo;
 import orz.springboot.data.repo.primary.PrimaryTest1Jpa;
 import orz.springboot.data.repo.primary.PrimaryTest1Mapper;
 import orz.springboot.data.repo.primary.model.PrimaryTest1Eo;
+import orz.springboot.data.repo.secondary.SecondaryJdbc;
 
 @SpringBootTest
 class AppTests {
@@ -25,8 +26,12 @@ class AppTests {
 
     @Autowired
     orz.springboot.data.repo.secondary.TestJpa secondaryTestJpa;
+
     @Autowired
     private PrimaryRepo primaryRepo;
+
+    @Autowired
+    private SecondaryJdbc secondaryJdbc;
 
     @Test
     void contextLoads() {
@@ -34,6 +39,8 @@ class AppTests {
 
     @Test
     void testV5() {
+        secondaryJdbc.queryV1();
+
         OrzTransaction.of("primary").propagationRequiresNew().exec(() -> {
             primaryTest1Jpa.saveAndFlush(new PrimaryTest1Eo(null, "from testV5 1"));
             OrzLock.of("testLockV1", true).transaction("primary").propagationRequiresNew().exec(() -> {

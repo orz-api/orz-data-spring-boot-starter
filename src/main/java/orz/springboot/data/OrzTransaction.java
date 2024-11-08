@@ -152,17 +152,17 @@ public class OrzTransaction {
             status = manager.getTransaction(definition);
             return action.run(param);
         } catch (OrzTransactionException e) {
-            if (e.isRollback()) {
+            if (e.isRollback() && !status.isCompleted()) {
                 manager.rollback(status);
             }
             throw e.getException();
         } catch (Exception e) {
-            if (status != null) {
+            if (status != null && !status.isCompleted()) {
                 manager.rollback(status);
             }
             throw e;
         } finally {
-            if (status != null) {
+            if (status != null && !status.isCompleted()) {
                 manager.commit(status);
             }
         }
