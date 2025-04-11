@@ -18,6 +18,15 @@ public class OrzTransaction {
         this.lock = lock;
     }
 
+    public static OrzTransaction of() {
+        return OrzTransaction.of((OrzLock) null);
+    }
+
+    public static OrzTransaction of(OrzLock lock) {
+        var managerBean = OrzBaseUtils.getAppContext().getBean(PlatformTransactionManager.class);
+        return OrzTransaction.of(managerBean, lock);
+    }
+
     public static OrzTransaction of(String manager) {
         return OrzTransaction.of(manager, null);
     }
