@@ -37,8 +37,12 @@ public class OrzLock {
         return new OrzLock(lock);
     }
 
-    public OrzTransaction transaction(String source) {
-        return OrzTransaction.of(source, this);
+    public OrzTransaction transaction() {
+        return OrzTransaction.of(this);
+    }
+
+    public OrzTransaction transaction(String manager) {
+        return OrzTransaction.of(manager, this);
     }
 
     public <E extends Exception> void exec(Action1<E> action) throws E {
