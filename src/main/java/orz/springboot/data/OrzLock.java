@@ -1,6 +1,7 @@
 package orz.springboot.data;
 
 import lombok.SneakyThrows;
+import org.redisson.RedissonMultiLock;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import orz.springboot.base.OrzBaseUtils;
@@ -12,25 +13,37 @@ public class OrzLock {
         this.lock = lock;
     }
 
-    public static OrzLock of(String name) {
-        return OrzLock.of(name, false);
+    public static OrzLock of(String... names) {
+        return OrzLock.of(names, false);
     }
 
     public static OrzLock of(String name, boolean shared) {
+        return OrzLock.of(new String[]{name}, shared);
+    }
+
+    public static OrzLock of(String[] names, boolean shared) {
         var redissonClient = OrzBaseUtils.getAppContext().getBean(RedissonClient.class);
-        return OrzLock.of(redissonClient, name, shared);
+        return OrzLock.of(redissonClient, names, shared);
     }
 
-    public static OrzLock of(RedissonClient redissonClient, String name) {
-        return OrzLock.of(redissonClient, name, false);
+    public static OrzLock of(RedissonClient redissonClient, String[] names) {
+        return OrzLock.of(redissonClient, names, false);
     }
 
-    public static OrzLock of(RedissonClient redissonClient, String name, boolean shared) {
+    public static OrzLock of(RedissonClient redissonClient, String[] names, boolean shared) {
         var prefix = "orz-lock:";
         if (!shared) {
             prefix = OrzBaseUtils.getAppContext().getEnvironment().getRequiredProperty("spring.application.name") + ":" + prefix;
         }
-        return OrzLock.of(redissonClient.getLock(prefix + name));
+        if (names.length > 1) {
+            var locks = new RLock[names.length];
+            for (int i = 0; i < names.length; i++) {
+                locks[i] = redissonClient.getLock(prefix + names[i]);
+            }
+            return OrzLock.of(new RedissonMultiLock(locks));
+        } else {
+            return OrzLock.of(redissonClient.getLock(prefix + names[0]));
+        }
     }
 
     public static OrzLock of(RLock lock) {
@@ -71,9 +84,7 @@ public class OrzLock {
         } catch (OrzLockException e) {
             throw e.getException();
         } finally {
-            if (lock.isLocked() && lock.isHeldByCurrentThread()) {
-                lock.unlock();
-            }
+            lock.unlock();
         }
     }
 
